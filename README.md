@@ -5,7 +5,7 @@
 
 Rui Zhong: <reversezr33@gmail.com>
 
-Hong Hu: <honghu@psu.edu>
+[Hong Hu](https://huhong789.github.io/): <honghu@psu.edu>
 
 Hangfan Zhang: <hbz5148@psu.edu>
 
