@@ -1,7 +1,7 @@
 # Polyglot
 [**One Engine to Fuzz ‘em All: Generic Language Processor Testing with Semantic Validation (to appear)**](https://changochen.github.io/publication/polyglot_sp_2021_to_appear.pdf)
 
-Yongheng Chen, Rui Zhong(co-first author), Hong Hu, Hangfan Zhang, Yupeng Yang, Dinghao Wu and Wenke Lee.
+Yongheng Chen, Rui Zhong(co-first author), Hong Hu, Hangfan Zhang, Yupeng Yang, Dinghao Wu and Wenke Lee.</br>
 In Proceedings of the 41st IEEE Symposium on Security and Privacy (Oakland 2021).
 ## Contact
 [Yongheng Chen](https://changochen.github.io/): <ne0@gatech.edu>
