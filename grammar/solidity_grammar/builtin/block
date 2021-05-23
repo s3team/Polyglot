@@ -1,0 +1,40 @@
+pragma solidity ;
+
+contract Block{
+	struct block{
+		bytes32 blockhash;
+		address coinbase;
+		uint difficulty;
+		uint gaslimit;
+		uint number;
+		uint timestamp;
+	}
+
+	struct msg {
+	     bytes data;
+             uint gas;
+             address sender;
+             bytes4 sig;
+             uint value;
+	}
+
+        struct tx{
+            uint gasprice;
+            address origin;
+        }
+
+	function selfdestruct(address recipient){
+	}
+	function addmod(uint x, uint y, uint k) returns (uint b){}
+	function mulmod(uint x, uint y, uint k) returns (uint b){}
+	function keccak256(ANYTYPE x) returns (bytes32 b){}
+	function sha256(ANYTYPE x) returns (bytes32 b){}
+	function sha3(ANYTYPE x) returns (bytes32 b){}
+	function ripemd160(ANYTYPE x) returns (bytes20 b){}
+        function ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address kk){}
+
+	function assert(bool x) returns (ANYTYPE res){}
+	function require(bool x) returns (ANYTYPE  res){}
+	function require(bool x, string messge) returns (ANYTYPE res){}
+	function revert() returns (ANYTYPE res){}
+}

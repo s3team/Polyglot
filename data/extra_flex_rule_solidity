@@ -1,0 +1,101 @@
+(u)?fixed([0-9]+x?[0-9]+)?
+-----
+yylval->sval = strdup(yytext);
+return PREFIX_FIXTYPE;
++++++
+"{"
+-----
+[OP_LBRACE]
+set_token_state(TOKEN_NONE);
+return PREFIX_OP_LBRACE;
++++++
+"is"
+-----
+[IS]
+set_token_state(TOKEN_IS);
+return PREFIX_IS;
++++++
+"."
+-----
+[OP_DOT, OP_DOT_TYPE_NAME]
+auto state = get_token_state();
+if(state == TOKEN_IS) return PREFIX_OP_DOT_TYPE_NAME;
+else return PREFIX_OP_DOT;
++++++
+"pragma".*$
+-----
+yylval->sval = strdup("pragma solidity >=0.4.0 <0.7.0;\n");
+return PREFIX_PRAGMALITERAL;
++++++
+"0x"[0-9a-fA-F]+
+-----
+yylval->sval = strdup(yytext);
+return PREFIX_HEXNUNBERLITERAL;
++++++
+\'([0-9a-fA-F]{2})*\'
+-----
+yylval->sval = strdup(yytext);
+return PREFIX_HEXLITERAL;
++++++
+\"([0-9a-fA-F]{2})*\"
+-----
+yylval->sval = strdup(yytext);
+return PREFIX_HEXLITERAL;
++++++
+-?[0-9]+"."[0-9]* |
+"."[0-9]*
+-----
+yylval->fval = atof(yytext);
+return PREFIX_FLOATLITERAL;
++++++
+-?[0-9]+
+-----
+yylval->ival = atol(yytext);
+return PREFIX_INTLITERAL;
++++++
+\"[^\"\n]+\"
+-----
+std::string s(yytext);
+yylval->sval = strdup(s.substr(0, s.size()).c_str());
+return PREFIX_STRINGLITERAL;
++++++
+[a-zA-Z_$][a-zA-Z_$0-9]*
+-----
+yylval->sval = strdup(yytext);
+return PREFIX_IDENTIFIER;
++++++
+\'
+-----
+BEGIN singlequotedstring; strbuf = std::stringstream{}; strbuf << '\'';
++++++
+<singlequotedstring>\'\'
+-----
+strbuf << '\'';
++++++
+<singlequotedstring>[^']*
+-----
+strbuf << yytext;
++++++
+<singlequotedstring>\'
+-----
+BEGIN 0; 
+strbuf << '\'';
+yylval->sval = strdup(strbuf.str().c_str());
+return PREFIX_STRINGLITERAL;
++++++
+<singlequotedstring><<EOF>>
+-----
+return 0;
++++++
+[ \t\n]+
+-----
++++++
+"/*"([^*]|(\*+[^*/]))*\*+\/
+-----
++++++
+"//".*$
+-----
++++++
+.
+-----
+return 0;

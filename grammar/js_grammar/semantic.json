@@ -1,0 +1,779 @@
+{
+    "__comments": "",
+    "InitFileDir":"/path/to/js_init_files/",
+    "BuiltinObjFile":"/path/to/PolyGlot/js_grammar/js_internal_object",
+    "IsWeakType": 1,
+    "IRHandlers": [
+        {
+            "IRType": "Program",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeGlobal"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "Block",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeStatement"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "CaseBlock",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeStatement"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "ClassTail",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeClass"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "MethodDefinition",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeFunction"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "AnoymousFunction",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeFunction"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "FunctionDeclaration",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeFunction"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        }
+    ],
+    "BasicUnit": [
+        "kFunctionDefinition",
+        "kStatement",
+        "kDeclaration",
+        "kClassElement"
+    ],
+    "ConvertChain": [
+        [
+            "ANYTYPE",
+            "ALLTYPES"
+        ],
+        [
+            "ALLCOMPOUNDTYPE",
+            "ALLTYPES"
+        ],
+        [
+            "ALLFUNCTION",
+            "ALLTYPES"
+        ]
+    ],
+    "BasicTypes": [
+        "ANYTYPE"
+    ],
+    "OPRule": [
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "+",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "-",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "/",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "*",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLCOMPOUNDTYPE",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ".",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "LEFT"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLFUNCTION",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "( )",
+                ""
+            ],
+            "Property": [
+                "FUNCTIONCALL"
+            ],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "(",
+                ")",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "TYPEOF",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLFUNCTION",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "(",
+                ")"
+            ],
+            "Property": [
+                "FUNCTIONCALL"
+            ],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "%",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "++",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "--",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "++",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "--",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ">>",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "<<",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "<",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ">",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "<=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ">=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "==",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "!=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "&&",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "||",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "|",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "&",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "+=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "-=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "/=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "*=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "%=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "<<=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ">>=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "&=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "|=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "^",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "^=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "+",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "!",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "-",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "~",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ",",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "[",
+                "]"
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "[",
+                "]",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ":",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "?",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandLeftType": "ALLCOMPOUNDTYPE",
+            "ResultType": "ALLCOMPOUNDTYPE",
+            "Operator": [
+                "new",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        }
+    ]
+}

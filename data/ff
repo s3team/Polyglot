@@ -1,0 +1,23 @@
+create table aa(bb,cc);
+
+bb->aa; cc->aa;                 map<DATAYPE, map<DATAYPE, relation>> = {kSubtype, kELement}
+
+ColumnName->TableName = kSubtype
+
+
+create table dd(ee,ff);
+
+ee->dd; ff->dd
+
+select gg from hh,mm where ii.jj = kk.ll;
+hh, mm --> 1
+gg, ii, kk--> 2
+jj, ll --> 3
+
+gg->(hh,mm)
+jj->ii
+ll->kk
+ii->(hh,mm)
+kk->(hh,mm)
+
+TableName->TableName = kELement

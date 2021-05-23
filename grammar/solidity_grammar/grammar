@@ -1,0 +1,749 @@
+program: 
+source_unit_list 
+--- 
+source_unit_list: 
+source_unit 
+source_unit_list source_unit
+--- 
+source_unit: 
+pragma_directive 
+import_directive 
+contract_definition
+--- 
+pragma_directive:
+PRAGMALITERAL 
+---
+import_directive: 
+'import' string_literal opt_as_identifer ';' 
+'import' identifier opt_as_identifer 'from' string_literal ';' 
+'import' '*' opt_as_identifer 'from' string_literal ';' 
+'import' '{' identifier_as_list '}' 'from' string_literal ';' 
+--- 
+identifier_as_list: 
+identifier opt_as_identifer 
+identifier opt_as_identifer ',' identifier_as_list 
+--- 
+opt_as_identifer: 
+'as' identifier 
+
+--- 
+contract_definition: 
+'abstract' contract_library_interface identifier opt_is_inheritancespecifier_list '{' opt_contract_part_list '}' 
+contract_library_interface identifier opt_is_inheritancespecifier_list '{' opt_contract_part_list '}' 
+--- 
+opt_contract_part_list: 
+contract_part_list 
+
+--- 
+contract_part_list: 
+contract_part **contract_part=kDataVarDefine:1:Define**
+contract_part_list contract_part **contract_part=kDataVarDefine:1:Define**
+---
+opt_is_inheritancespecifier_list:
+is_inheritancespecifier_list
+
+---
+is_inheritancespecifier_list: 
+'is' inheritance_specifier 
+is_inheritancespecifier_list ',' inheritance_specifier 
+--- 
+contract_library_interface: 
+'contract' 
+'library' 
+'interface' 
+--- 
+contract_part: 
+state_variable_declaration 
+using_for_declaration 
+struct_definition 
+modifier_definition 
+function_definition 
+event_definition 
+enum_definition 
+--- 
+inheritance_specifier: 
+user_defined_type_name 
+user_defined_type_name '(' expression_list ')' 
+--- 
+state_variable_declaration: 
+type_name opt_identifier_descriptor_list identifier opt_assign_equation ';' **fixme=kDataVarType:1:Define;identifier=kDataVarName:1:Define**
+--- 
+identifier_descriptor: 
+'public' 
+'internal' 
+'private' 
+'constant' 
+override_specifier
+--- 
+identifier_descriptor_list: 
+identifier_descriptor 
+identifier_descriptor identifier_descriptor_list 
+--- 
+opt_identifier_descriptor_list: 
+identifier_descriptor_list 
+
+--- 
+using_for_declaration: 
+'using' identifier 'for' star_or_typename ';' 
+--- 
+star_or_typename: 
+'*' 
+type_name 
+--- 
+struct_definition: 
+'struct' identifier '{' variable_declaration_list '}' **fixme=kDataClassType:1:Define;identifier=kDataClassName:1:Define;variable_declaration_list=kDataStructBody:1:Define;variable_declaration_list->variable_declaration=kDataVarDefine:1:Define**
+--- 
+variable_declaration_list: 
+variable_declaration ';' 
+variable_declaration ';' variable_declaration_list 
+--- 
+modifier_definition: 
+'modifier' identifier opt_parameter_list block 
+'modifier' identifier opt_parameter_list virtual_overridespecifier_list block 
+--- 
+virtual_overridespecifier_list: 
+'virtual' 
+override_specifier 
+virtual_overridespecifier_list 'virtual' 
+virtual_overridespecifier_list override_specifier 
+--- 
+opt_parameter_list: 
+parameter_list 
+
+--- 
+opt_expression_list: 
+expression_list 
+
+--- 
+modifier_invocation: 
+identifier 
+identifier '(' opt_expression_list ')' 
+--- 
+function_definition: 
+function_descriptor parameter_list function_definition_head_list 'returns' parameter_list semi_or_block **fixme=kDataFunctionType:1:Define;parameter_list_1=kDataFunctionArg:1:Define;parameter_list_1->parameter_list_no_paren->parameter->opt_identifier->identifier=kDataVarName:1:Define;semi_or_block->block=kDataFunctionBody:1:Define;parameter_list_1->parameter_list_no_paren->parameter->type_name=kDataVarType:1:Define;parameter_list_2->parameter_list_no_paren->parameter->type_name=kDataFunctionReturnValue:1:Define**
+function_descriptor parameter_list function_definition_head_list semi_or_block **fixme=kDataFunctionType:1:Define;parameter_list_1=kDataFunctionArg:1:Define;parameter_list_1->parameter_list_no_paren->parameter->opt_identifier->identifier=kDataVarName:1:Define;semi_or_block->block=kDataFunctionBody:1:Define;parameter_list_1->parameter_list_no_paren->parameter->type_name=kDataVarType:1:Define**
+function_descriptor parameter_list 'returns' parameter_list semi_or_block **fixme=kDataFunctionType:1:Define;parameter_list_1=kDataFunctionArg:1:Define;parameter_list_1->parameter_list_no_paren->parameter->opt_identifier->identifier=kDataVarName:1:Define;semi_or_block->block=kDataFunctionBody:1:Define;parameter_list_1->parameter_list_no_paren->parameter->type_name=kDataVarType:1:Define;parameter_list_2->parameter_list_no_paren->parameter->type_name=kDataFunctionReturnValue:1:Define**
+function_descriptor parameter_list semi_or_block **fixme=kDataFunctionType:1:Define;parameter_list_1=kDataFunctionArg:1:Define;parameter_list_1->parameter_list_no_paren->parameter->opt_identifier->identifier=kDataVarName:1:Define;semi_or_block->block=kDataFunctionBody:1:Define;parameter_list_1->parameter_list_no_paren->parameter->type_name=kDataVarType:1:Define**
+--- 
+semi_or_block: 
+';' 
+block 
+--- 
+function_definition_head_item: 
+modifier_invocation 
+state_mutability 
+'external' 
+'public' 
+'internal' 
+'private' 
+'virtual' 
+override_specifier
+---
+function_definition_head_list:
+function_definition_head_item
+function_definition_head_item function_definition_head_list
+--- 
+function_descriptor: 
+'function' identifier **identifier=kDataFunctionName:1:Define**
+'constructor' 
+'fallback' 
+'receive' 
+--- 
+user_defined_type_name_list: 
+user_defined_type_name 
+user_defined_type_name ',' user_defined_type_name_list 
+--- 
+override_specifier: 
+'override' '(' user_defined_type_name_list ')' 
+'override' 
+--- 
+event_definition: 
+'event' identifier event_parameter_list ';' 
+'event' identifier event_parameter_list 'anonymous' ';' 
+--- 
+enum_value: 
+identifier 
+--- 
+enum_value_list: 
+enum_value 
+enum_value ',' enum_value_list 
+--- 
+enum_definition: 
+'enum' identifier '{' enum_value_list '}' 
+--- 
+parameter_list: 
+'(' ')' 
+'(' parameter_list_no_paren ')' 
+--- 
+parameter_list_no_paren: 
+parameter 
+parameter ',' parameter_list_no_paren 
+--- 
+opt_storage_location: 
+storage_location 
+
+--- 
+opt_identifier: 
+identifier 
+
+--- 
+parameter: 
+type_name opt_storage_location opt_identifier 
+--- 
+event_parameter_list: 
+'(' ')' 
+'(' event_parameter_list_no_paren ')' 
+--- 
+event_parameter_list_no_paren: 
+event_parameter 
+event_parameter ',' event_parameter_list_no_paren 
+--- 
+event_parameter: 
+type_name opt_identifier 
+type_name 'indexed' opt_identifier 
+--- 
+function_type_parameter_list: 
+'(' opt_function_type_parameter_list_without_bracket ')' 
+--- 
+opt_function_type_parameter_list_without_bracket: 
+function_type_parameter_list_without_bracket 
+
+--- 
+function_type_parameter_list_without_bracket: 
+function_type_parameter 
+function_type_parameter_list_without_bracket ',' function_type_parameter 
+--- 
+function_type_parameter: 
+type_name opt_storage_location 
+--- 
+variable_declaration: 
+type_name declarator **type_name=kDataVarType:1:Define;declarator=kDataDeclarator:1:Define**
+--- 
+declarator:
+opt_storage_location identifier **identifier=kDataVarName:1:Define**
+---
+type_name: 
+elementary_type_name 
+user_defined_type_name 
+mapping 
+array_type_name 
+function_type_name 
+'address' 'payable' 
+--- 
+user_defined_type_name: 
+identifier 
+identifier OP_DOT_TYPE_NAME user_defined_type_name 
+--- 
+mapping: 
+'mapping' '(' user_defined_type_name '=>' type_name ')' 
+'mapping' '(' elementary_type_name '=>' type_name ')' 
+--- 
+array_type_name: 
+elementary_type_name '[' ']'
+elementary_type_name '[' expression ']' 
+array_type_name '[' ']'
+array_type_name '[' expression ']' 
+--- 
+function_type_name: 
+'function' function_type_parameter_list opt_simple_function_descriptor_list
+'function' function_type_parameter_list opt_simple_function_descriptor_list 'returns' function_type_parameter_list 
+--- 
+simple_function_descriptor: 
+'internal' 
+'external' 
+state_mutability 
+--- 
+simple_function_descriptor_list: 
+simple_function_descriptor %prec LOWEST
+simple_function_descriptor simple_function_descriptor_list 
+--- 
+opt_simple_function_descriptor_list: 
+simple_function_descriptor_list 
+%prec LOWEST
+--- 
+storage_location: 
+'memory' 
+'storage' 
+'calldata' 
+--- 
+state_mutability: 
+'pure' 
+'view' 
+'payable' 
+--- 
+block: 
+'{' opt_statement_list '}' 
+--- 
+opt_statement_list: 
+statement_list 
+
+--- 
+statement_list: 
+statement 
+statement_list statement 
+--- 
+statement: 
+if_statement 
+try_statement 
+while_statement 
+for_statement 
+block 
+inline_assembly_statement 
+do_while_statement ';' 
+placeholder_statement ';' 
+'continue' ';' 
+'break' ';' 
+return ';' 
+'throw' ';' 
+emit_statement ';'
+simple_statement ';' 
+--- 
+expression_statement: 
+expression 
+--- 
+if_statement: 
+'if' '(' expression ')' statement 
+'if' '(' expression ')' statement 'else' statement 
+--- 
+try_statement: 
+'try' expression block catch_clause_list 
+'try' expression 'returns' parameter_list block catch_clause_list 
+--- 
+catch_clause_list: 
+catch_clause 
+catch_clause catch_clause_list 
+--- 
+catch_clause: 
+'catch' block 
+'catch' opt_identifier parameter_list block 
+--- 
+while_statement: 
+'while' '(' expression ')' statement 
+--- 
+placeholder_statement: 
+'_' 
+--- 
+simple_statement: 
+variable_definition **fixme=kDataVarDefine:1:Define**
+expression_statement 
+--- 
+for_statement: 
+'for' '(' opt_simple_statement ';' opt_expression ';' opt_expression_statement ')' statement 
+--- 
+opt_expression_statement: 
+expression_statement 
+
+--- 
+opt_expression: 
+expression %prec LOWEST
+
+--- 
+opt_simple_statement: 
+simple_statement 
+
+--- 
+inline_assembly_statement: 
+'assembly' assembly_block 
+'assembly' string_literal assembly_block 
+--- 
+do_while_statement: 
+'do' statement 'while' '(' expression ')' 
+--- 
+return: 
+'return' expression 
+'return' 
+--- 
+emit_statement: 
+'emit' function_call 
+--- 
+opt_assign_equation: 
+assign_equation 
+
+--- 
+assign_equation: 
+'=' expression 
+--- 
+variable_definition: 
+'(' variable_declaration_comma_list ')' opt_assign_equation 
+variable_declaration opt_assign_equation
+--- 
+variable_declaration_comma_list: 
+variable_declaration 
+variable_declaration ',' variable_declaration_comma_list 
+---
+expression: 
+expression '--'
+expression '++'
+index_access
+index_range_access
+member_access **fixme=kDataFixUnit:1:Use**
+function_call **fixme=kDataFixUnit:1:Use**
+expression '{' name_value_list '}' **fixme=kDataFixUnit:1:Use**
+'(' expression ')' %prec UMINUS
+'!' expression %prec UMINUS
+'~' expression %prec UMINUS
+'delete' expression %prec UMINUS
+'++' expression %prec UMINUS
+'--' expression %prec UMINUS
+'+' expression %prec UMINUS
+'-' expression %prec UMINUS
+expression binary_operator expression **expression_1=kDataFixUnit:1:Use;expression_2=kDataFixUnit:1:Use** %prec UMINUS
+expression '?' expression ':' expression **fixme=kDataFixUnit:1:Use** %prec UMINUS
+primary_expression
+new_expression
+---
+binary_operator: 
+'*' 
+'/'
+'%'
+'**'
+'+' 
+'-' 
+'>>' 
+'<<' 
+'&' 
+'^' 
+'|' 
+'>' 
+'<' 
+'<=' 
+'>=' 
+'==' 
+'!=' 
+'&&' 
+'||' 
+'=' 
+'|=' 
+'^=' 
+'&=' 
+'<<=' 
+'>>=' 
+'+=' 
+'-=' 
+'*=' 
+'/=' 
+'%=' 
+--- 
+primary_expression: 
+boolean_literal 
+num_literal 
+'hex' hex_literal 
+string_literal 
+tuple_expression 
+identifier **fixme=kDataFixUnit:1:Use**
+elementary_type_name_expression 
+--- 
+expression_list: 
+expression 
+expression_list ',' expression 
+--- 
+name_value_list: 
+identifier ':' expression 
+name_value_list ',' identifier ':' expression 
+--- 
+function_call: 
+expression '(' function_call_arguments ')' 
+--- 
+function_call_arguments: 
+'{' opt_name_value_list '}' 
+opt_expression_list
+---
+opt_name_value_list:
+name_value_list
+
+--- 
+new_expression: 
+'new' expression
+--- 
+member_access: 
+expression '.' identifier 
+--- 
+index_access: 
+expression '[' opt_expression ']' 
+--- 
+index_range_access: 
+expression '[' opt_expression ':' opt_expression ']' 
+--- 
+boolean_literal: 
+'true' 
+'false' 
+--- 
+num_literal: 
+hex_number 
+hex_number number_unit 
+decimal_number 
+decimal_number number_unit 
+--- 
+number_unit: 
+'wei' 
+'szabo' 
+'finney' 
+'ether' 
+'seconds' 
+'minutes' 
+'hours' 
+'days' 
+'weeks' 
+'years' 
+--- 
+hex_literal: 
+HEXLITERAL 
+--- 
+string_literal: 
+STRINGLITERAL 
+--- 
+identifier: 
+IDENTIFIER 
+--- 
+hex_number: 
+HEXNUNBERLITERAL 
+--- 
+decimal_number: 
+number_literal opt_expon 
+--- 
+opt_expon: 
+expon 
+
+--- 
+expon: 
+'e' int_literal 
+'E' int_literal 
+--- 
+number_literal: 
+int_literal 
+float_literal 
+--- 
+int_literal: 
+INTLITERAL 
+--- 
+float_literal: 
+FLOATLITERAL 
+--- 
+tuple_expression: 
+'(' opt_optexpression_list ')' 
+'[' opt_expression_list ']' 
+--- 
+opt_optexpression_list: 
+optexpression_list 
+--- 
+optexpression_list: 
+opt_expression 
+optexpression_list ',' opt_expression 
+--- 
+elementary_type_name_expression:
+elementary_type_name %prec UMM0
+--- 
+elementary_type_name: 
+'address' 
+'bool' 
+'string' 
+int 
+uint 
+byte 
+fixed_type
+--- 
+int: 
+'int' 
+'int8' 
+'int16' 
+'int24' 
+'int32' 
+'int40' 
+'int48' 
+'int56' 
+'int64' 
+'int72' 
+'int80' 
+'int88' 
+'int96' 
+'int104' 
+'int112' 
+'int120' 
+'int128' 
+'int136' 
+'int144' 
+'int152' 
+'int160' 
+'int168' 
+'int176' 
+'int184' 
+'int192' 
+'int200' 
+'int208' 
+'int216' 
+'int224' 
+'int232' 
+'int240' 
+'int248' 
+'int256' 
+--- 
+uint: 
+'uint' 
+'uint8' 
+'uint16' 
+'uint24' 
+'uint32' 
+'uint40' 
+'uint48' 
+'uint56' 
+'uint64' 
+'uint72' 
+'uint80' 
+'uint88' 
+'uint96' 
+'uint104' 
+'uint112' 
+'uint120' 
+'uint128' 
+'uint136' 
+'uint144' 
+'uint152' 
+'uint160' 
+'uint168' 
+'uint176' 
+'uint184' 
+'uint192' 
+'uint200' 
+'uint208' 
+'uint216' 
+'uint224' 
+'uint232' 
+'uint240' 
+'uint248' 
+'uint256' 
+--- 
+byte: 
+'byte' 
+'bytes' 
+'bytes1' 
+'bytes2' 
+'bytes3' 
+'bytes4' 
+'bytes5' 
+'bytes6' 
+'bytes7' 
+'bytes8' 
+'bytes9' 
+'bytes10' 
+'bytes11' 
+'bytes12' 
+'bytes13' 
+'bytes14' 
+'bytes15' 
+'bytes16' 
+'bytes17' 
+'bytes18' 
+'bytes19' 
+'bytes20' 
+'bytes21' 
+'bytes22' 
+'bytes23' 
+'bytes24' 
+'bytes25' 
+'bytes26' 
+'bytes27' 
+'bytes28' 
+'bytes29' 
+'bytes30' 
+'bytes31' 
+'bytes32' 
+--- 
+fixed_type: 
+FIXTYPE
+--- 
+assembly_block: 
+'{' opt_assembly_statement_list '}' 
+--- 
+opt_assembly_statement_list: 
+assembly_statement_list 
+
+--- 
+assembly_statement_list: 
+assembly_statement 
+assembly_statement_list assembly_statement 
+--- 
+assembly_statement: 
+assembly_block 
+assembly_function_definition 
+assembly_variable_declaration 
+assembly_assignment 
+assembly_if 
+assembly_expression 
+assembly_switch 
+assembly_for_loop 
+assembly_break_continue 
+assembly_leave 
+--- 
+assembly_function_definition: 
+'function' identifier '(' opt_assembly_identifier_list ')' assembly_block 
+'function' identifier '(' opt_assembly_identifier_list ')' '->' assembly_identifier_list assembly_block 
+--- 
+opt_assembly_identifier_list: 
+assembly_identifier_list 
+
+--- 
+assembly_variable_declaration: 
+assembly_type assembly_identifier_list ':=' assembly_expression **assembly_type=kDataVarType:1:Define;assembly_identifier_list->assembly_declarator=kDataDeclarator:1:Define;assembly_identifier_list->assembly_declarator->identifier=kDataVarName:1:Define**
+assembly_type assembly_identifier_list **assembly_type=kDataVarType:1:Define;assembly_identifier_list->assembly_declarator=kDataDeclarator:1:Define;assembly_identifier_list->assembly_declarator->identifier=kDataVarName:1:Define**
+---
+assembly_type:
+'let'
+--- 
+assembly_assignment: 
+assembly_identifier_list ':=' assembly_expression 
+--- 
+assembly_expression: 
+assembly_function_call 
+identifier **fixme=kDataFixUnit:1:Use**
+literal 
+---
+literal:
+number_literal
+string_literal
+--- 
+assembly_if: 
+'if' assembly_expression assembly_block 
+--- 
+assembly_switch: 
+'switch' assembly_expression assembly_default 
+'switch' assembly_expression assembly_case_list 
+'switch' assembly_expression assembly_case_list assembly_default 
+--- 
+assembly_case_list: 
+assembly_case 
+assembly_case_list assembly_case 
+--- 
+assembly_case: 
+'case' literal assembly_block 
+--- 
+assembly_default: 
+'default' assembly_block 
+--- 
+assembly_for_loop: 
+'for' assembly_block assembly_expression assembly_block assembly_block 
+--- 
+assembly_break_continue: 
+'break' 
+'continue' 
+--- 
+assembly_leave: 
+'leave' 
+--- 
+assembly_function_call: 
+identifier '(' opt_assembly_expression_list ')' 
+--- 
+opt_assembly_expression_list: 
+assembly_expression_list 
+
+--- 
+assembly_expression_list: 
+assembly_expression 
+assembly_expression_list ',' assembly_expression 
+--- 
+assembly_identifier_list: 
+assembly_declarator
+assembly_identifier_list ',' assembly_declarator
+---
+assembly_declarator:
+identifier
+---

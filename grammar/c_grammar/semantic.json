@@ -1,0 +1,833 @@
+{
+    "InitFileDir":"/path/to/initfile",
+    "BuiltinObjFile": "",
+    "IsWeakType": 0,
+    "FixIRType":"kAssignmentExpression",
+    "FunctionArgumentUnit":"kParameterDeclaration",
+    "IRHandlers": [
+        {
+            "IRType": "Program",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeGlobal"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "CompoundStatement",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeStatement"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        },
+        {
+            "IRType": "ExtraStructDeclarationList",
+            "PreHandler": [
+                {
+                    "Function": "enter_scope",
+                    "Args": [
+                        "kScopeStatement"
+                    ]
+                }
+            ],
+            "PostHandler": [
+                {
+                    "Function": "exit_scope",
+                    "Args": []
+                }
+            ]
+        }
+    ],
+    "BasicUnit": [
+        "kExternalDeclaration",
+        "kStructDeclaration",
+        "kDeclaration",
+        "kStatement"
+    ],
+    "ConvertChain": [
+        [
+            "char",
+            "short"
+        ],
+        [
+            "short",
+            "short int"
+        ],
+        [
+            "short int",
+            "signed"
+        ],
+        [
+            "signed",
+            "int"
+        ],
+        [
+            "int",
+            "unsigned"
+        ],
+        [
+            "unsigned",
+            "long"
+        ],
+        [
+            "long",
+            "long int"
+        ],
+        [
+            "long int",
+            "float"
+        ],
+        [
+            "float",
+            "double"
+        ],
+        [
+            "double",
+            "ALLTYPES"
+        ],
+        [
+            "void",
+            "ALLTYPES"
+        ],
+        [
+            "ALLCOMPOUNDTYPE",
+            "ALLTYPES"
+        ],
+        [
+            "ALLFUNCTION",
+            "ALLTYPES"
+        ]
+    ],
+    "BasicTypes": [
+        "void",
+        "signed",
+        "unsigned",
+        "int",
+        "short int",
+        "short",
+        "char",
+        "long int",
+        "float",
+        "double",
+        "long",
+        "void"
+    ],
+    "OPRule": [
+        {
+            "OperandNum": 2,
+            "OperandRightType": "long",
+            "OperandLeftType": "long",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "+",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "long",
+            "OperandLeftType": "long",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "long",
+            "OperandLeftType": "long",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "-",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "long",
+            "OperandLeftType": "long",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "/",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "long",
+            "OperandLeftType": "long",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "*",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "long",
+            "OperandLeftType": "long",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "+",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLCOMPOUNDTYPE",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ".",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "LEFT"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLFUNCTION",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "( )",
+                ""
+            ],
+            "Property": [
+                "FUNCTIONCALL"
+            ],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "(",
+                ")",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLFUNCTION",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "(",
+                ")"
+            ],
+            "Property": [
+                "FUNCTIONCALL"
+            ],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "*",
+                "",
+                ""
+            ],
+            "Property": [
+                "DEREFERENCE"
+            ],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "&",
+                "",
+                ""
+            ],
+            "Property": [
+                "REFERENCE"
+            ],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "->",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "LEFT"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "%",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "++",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "--",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "++",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "--",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "sizeof (",
+                ")",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                ">>",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "<<",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "<",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                ">",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "<=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                ">=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "==",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "!=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "&&",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "||",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "|",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "&",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "+=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "-=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "/=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "*=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "%=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "<<=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                ">>=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "&=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "|=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "^",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "",
+                "^=",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "+",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "!",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "-",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "~",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "long",
+            "Operator": [
+                "sizeof",
+                "",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ",",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "[",
+                "]"
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 1,
+            "OperandRightType": "",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "[",
+                "]",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                ":",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        },
+        {
+            "OperandNum": 2,
+            "OperandRightType": "ALLTYPES",
+            "OperandLeftType": "ALLTYPES",
+            "ResultType": "ALLTYPES",
+            "Operator": [
+                "",
+                "?",
+                ""
+            ],
+            "Property": [],
+            "InferDirection": "NORMAL"
+        }
+    ]
+}

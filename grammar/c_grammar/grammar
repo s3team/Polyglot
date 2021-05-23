@@ -1,0 +1,364 @@
+program:
+include_headers translation_unit
+translation_unit
+---
+statement_list:
+statement
+statement_list statement
+---
+statement:
+labeled_statement
+compound_statement
+expression_statement
+selection_statement
+iteration_statement
+jump_statement
+---
+primary_expression:
+identifier
+num_literal
+string_literal
+'(' expression ')'
+---
+postfix_expression:
+primary_expression  **primary_expression->identifier=kDataFixUnit:1:Use**
+postfix_expression '[' expression ']' **fixme=kDataFixUnit:1:Use**
+postfix_expression '(' ')' **fixme=kDataFixUnit:1:Use**
+postfix_expression '(' argument_expression_list ')' **fixme=kDataFixUnit:1:Use**
+postfix_expression '.' identifier **fixme=kDataFixUnit:1:Use;identifier=kDataClassInstance:1:Use;postfix_expression->identifier=kDataClassName:1:Use;postfix_expression->primary_expression->identifier=kDataClassMember:1:Use**
+postfix_expression PTR_OP identifier
+postfix_expression INC_OP
+postfix_expression DEC_OP
+---
+argument_expression_list:
+assignment_expression
+argument_expression_list ',' assignment_expression
+---
+unary_expression:
+postfix_expression
+INC_OP unary_expression
+DEC_OP unary_expression
+'+' cast_expression
+'!' cast_expression
+'-' cast_expression
+'~' cast_expression
+'*' cast_expression
+'&' cast_expression 
+SIZEOF unary_expression
+SIZEOF '(' type_name ')'
+---
+cast_expression:
+unary_expression
+'(' type_name ')' cast_expression
+---
+multiplicative_expression:
+cast_expression
+multiplicative_expression '*' cast_expression
+multiplicative_expression '/' cast_expression
+multiplicative_expression '%' cast_expression
+---
+additive_expression:
+multiplicative_expression
+additive_expression '+' multiplicative_expression
+additive_expression '-' multiplicative_expression
+---
+shift_expression:
+additive_expression
+shift_expression LEFT_OP additive_expression
+shift_expression RIGHT_OP additive_expression
+---
+relational_expression:
+shift_expression
+relational_expression '<' shift_expression
+relational_expression '>' shift_expression
+relational_expression LE_OP shift_expression
+relational_expression GE_OP shift_expression
+---
+equality_expression:
+relational_expression
+equality_expression EQ_OP relational_expression
+equality_expression NE_OP relational_expression
+---
+and_expression:
+equality_expression
+and_expression '&' equality_expression
+---
+exclusive_or_expression:
+and_expression
+exclusive_or_expression '^' and_expression
+---
+inclusive_or_expression:
+exclusive_or_expression
+inclusive_or_expression '|' exclusive_or_expression
+---
+logical_and_expression:
+inclusive_or_expression
+logical_and_expression AND_OP inclusive_or_expression
+---
+logical_or_expression:
+logical_and_expression
+logical_or_expression OR_OP logical_and_expression
+---
+conditional_expression:
+logical_or_expression
+logical_or_expression '?' three_op_suffix 
+---
+three_op_suffix:
+expression ':' conditional_expression
+---
+assignment_expression:
+conditional_expression **conditional_expression=kDataFixUnit:1:Use**
+unary_expression '=' assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression MUL_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression DIV_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression MOD_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression ADD_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression SUB_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression LEFT_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression RIGHT_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression AND_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression XOR_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+unary_expression OR_ASSIGN assignment_expression **unary_expression=kDataFixUnit:1:Use;assignment_expression=kDataFixUnit:1:Use**
+---
+expression:
+assignment_expression
+expression ',' assignment_expression
+---
+constant_expression:
+conditional_expression
+---
+declaration:
+declaration_specifiers ';'
+declaration_specifiers init_declarator_list ';'
+---
+declaration_specifiers:
+storage_class_specifier
+storage_class_specifier declaration_specifiers
+type_specifier
+type_specifier declaration_specifiers
+type_qualifier
+type_qualifier declaration_specifiers
+---
+init_declarator_list:
+init_declarator
+init_declarator_list ',' init_declarator
+---
+init_declarator:
+declarator  **declarator->direct_declarator->identifier=kDataVarName:1:Define**
+declarator '=' initializer  **declarator->direct_declarator->identifier=kDataVarName:1:Define**
+---
+storage_class_specifier:
+TYPEDEF
+EXTERN
+STATIC
+AUTO
+REGISTER
+---
+type_specifier:
+VOID **fixme=kDataVarType:1:Use**
+CHAR **fixme=kDataVarType:1:Use**
+SHORT **fixme=kDataVarType:1:Use**
+INT **fixme=kDataVarType:1:Use**
+LONG **fixme=kDataVarType:1:Use**
+FLOAT **fixme=kDataVarType:1:Use**
+DOUBLE **fixme=kDataVarType:1:Use**
+SIGNED **fixme=kDataVarType:1:Use**
+UNSIGNED **fixme=kDataVarType:1:Use**
+struct_or_union_specifier
+enum_specifier
+TYPE_NAME
+---
+struct_or_union_specifier:
+struct_or_union identifier extra_struct_declaration_list **fixme=kDataClassType:1:Define;identifier=kDataClassName:1:Define**
+struct_or_union extra_struct_declaration_list **fixme=kDataClassType:1:Define**
+struct_or_union identifier  **fixme=kDataClassType:1:Use;identifier=kDataClassName:1:Use**
+---
+struct_or_union:
+STRUCT
+UNION
+---
+extra_struct_declaration_list:
+'{' struct_declaration_list '}'  **fixme=kDataStructBody:1:Insertable**
+---
+struct_declaration_list:
+struct_declaration
+struct_declaration_list struct_declaration
+---
+struct_declaration:
+specifier_qualifier_list struct_declarator_list ';' **fixme=kDataVarDefine:1:Define**
+---
+specifier_qualifier_list:
+type_specifier specifier_qualifier_list
+type_specifier
+type_qualifier specifier_qualifier_list
+type_qualifier
+---
+struct_declarator_list:
+struct_declarator **struct_declarator=kDataDeclarator:1:Define**
+struct_declarator_list ',' struct_declarator **struct_declarator=kDataDeclarator:1:Define**
+---
+struct_declarator:
+declarator **declarator->direct_declarator->identifier=kDataVarName:1:Define**
+':' constant_expression
+declarator ':' constant_expression
+---
+enum_specifier:
+ENUM '{' enumerator_list '}'
+ENUM identifier '{' enumerator_list '}'
+ENUM identifier
+---
+enumerator_list:
+enumerator
+enumerator_list ',' enumerator
+---
+enumerator:
+identifier
+identifier '=' constant_expression
+---
+type_qualifier:
+CONST
+VOLATILE
+---
+declarator:
+pointer direct_declarator **fixme=kDataDeclarator:1:Define;pointer=kDataPointer:1:Define**
+direct_declarator **fixme=kDataDeclarator:1:Define**
+---
+direct_declarator:
+identifier  
+'(' declarator ')'
+direct_declarator '[' constant_expression ']'
+direct_declarator '[' ']'
+direct_declarator '(' parameter_type_list ')' **direct_declarator=kDataFunctionName:1:Define;parameter_type_list=kDataFunctionArg:1:Define**
+direct_declarator '(' identifier_list ')'
+direct_declarator '(' ')' **direct_declarator=kDataFunctionName:1:Define**
+---
+pointer:
+'*' 
+'*' type_qualifier_list
+'*' pointer **pointer=kDataPointer:1:Define**
+'*' type_qualifier_list pointer **pointer=kDataPointer:1:Define**
+---
+type_qualifier_list:
+type_qualifier
+type_qualifier_list type_qualifier
+---
+parameter_type_list:
+parameter_list
+parameter_list ',' ELLIPSIS
+---
+parameter_list:
+parameter_declaration
+parameter_list ',' parameter_declaration
+---
+parameter_declaration:
+declaration_specifiers declarator **declarator->direct_declarator->identifier=kDataVarName:1:Define**
+declaration_specifiers abstract_declarator
+declaration_specifiers
+---
+identifier_list:
+identifier
+identifier_list ',' identifier
+---
+type_name:
+specifier_qualifier_list
+specifier_qualifier_list abstract_declarator
+---
+abstract_declarator:
+pointer
+direct_abstract_declarator
+pointer direct_abstract_declarator
+---
+direct_abstract_declarator:
+'(' abstract_declarator ')'
+'[' ']'
+'[' constant_expression ']'
+direct_abstract_declarator '[' ']'
+direct_abstract_declarator '[' constant_expression ']'
+'(' ')'
+'(' parameter_type_list ')'
+direct_abstract_declarator '(' ')'
+direct_abstract_declarator '(' parameter_type_list ')'
+---
+initializer:
+assignment_expression
+'{' initializer_list '}'
+'{' initializer_list ',' '}'
+---
+initializer_list:
+initializer
+initializer_list ',' initializer
+---
+labeled_statement:
+identifier ':' statement
+CASE constant_expression ':' statement
+DEFAULT ':' statement
+---
+compound_statement:
+'{' '}' **fixme=kDataWhatever:1:Insertable**
+'{' statement_list '}' **fixme=kDataWhatever:1:Insertable**
+'{' declaration_list '}' **fixme=kDataWhatever:1:Insertable**
+'{' declaration_list statement_list '}' **fixme=kDataWhatever:1:Insertable**
+---
+declaration_list:
+declaration **declaration=kDataVarDefine:1:Define;**
+declaration declaration_list  **declaration=kDataVarDefine:1:Define;**
+---
+expression_statement:
+';'
+expression ';'
+---
+selection_statement:
+IF '(' expression ')' statement %prec THEN
+IF '(' expression ')' statement ELSE statement
+SWITCH '(' expression ')' statement
+---
+iteration_statement:
+WHILE '(' expression ')' statement
+DO statement WHILE '(' expression ')' ';'
+FOR '(' expression_statement expression_statement ')' statement
+FOR '(' expression_statement expression_statement expression ')' statement
+---
+jump_statement:
+GOTO identifier ';'
+CONTINUE ';'
+BREAK ';'
+RETURN ';'
+RETURN expression ';'
+---
+translation_unit:
+external_declaration **fixme=kDataWhatever:1:Insertable;external_declaration=kDataVarDefine:1:Define;**
+external_declaration translation_unit **fixme=kDataWhatever:1:Insertable;external_declaration=kDataVarDefine:1:Define;**
+---
+external_declaration:
+function_definition **function_definition=kDataFunctionType:1:Define;**
+declaration
+---
+include_headers:
+include_header 
+include_headers include_header 
+---
+include_header:
+SHARP_AND_INCLUDE OP_LESSTHAN identifier OP_GREATERTHAN_NEWLINE
+---
+function_definition:
+declaration_specifiers declarator declaration_list compound_statement **declaration_specifiers=kDataFunctionReturnValue:1:Use;compound_statement=kDataFunctionBody:1:Insertable**
+declaration_specifiers declarator compound_statement **declaration_specifiers=kDataFunctionReturnValue:1:Use;compound_statement=kDataFunctionBody:1:Insertable**
+declarator declaration_list compound_statement **compound_statement=kDataFunctionBody:1:Insertable**
+declarator compound_statement **compound_statement=kDataFunctionBody:1:Insertable**
+---
+identifier:
+IDENTIFIER
+---
+string_literal:
+STRINGLITERAL
+---
+num_literal:
+float_literal
+int_literal
+---
+float_literal:
+FLOATLITERAL
+---
+int_literal:
+INTLITERAL
+---

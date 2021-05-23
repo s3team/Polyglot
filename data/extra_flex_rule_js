@@ -1,0 +1,64 @@
+DOME
+-----
+[DOMEP, DOMEM]
+if(peak("+")) return PREFIX_DOMEP;
+else return PREFIX_DOMEM;
++++++
+-?[0-9]+"."[0-9]*(e-?[0-9]*)? |
+"."[0-9]*
+-----
+yylval->fval = atof(yytext);
+return PREFIX_FLOATLITERAL;
++++++
+-?[0-9]+ |
+-?0x[0-9A-Fa-f]+
+-----
+yylval->ival = atol(yytext);
+return PREFIX_INTLITERAL;
++++++
+\"[^\"\n]+\"
+-----
+std::string s(yytext);
+yylval->sval = strdup(s.substr(0, s.size()).c_str());
+return PREFIX_STRINGLITERAL;
++++++
+[A-Za-z_][A-Za-z0-9_]*
+-----
+yylval->sval = strdup(yytext);
+return PREFIX_IDENTIFIER;
++++++
+\'
+-----
+BEGIN singlequotedstring; strbuf = std::stringstream{}; strbuf << '\'';
++++++
+<singlequotedstring>\'\'
+-----
+strbuf << '\'';
++++++
+<singlequotedstring>[^']*
+-----
+strbuf << yytext;
++++++
+<singlequotedstring>\'
+-----
+BEGIN 0; 
+strbuf << '\'';
+yylval->sval = strdup(strbuf.str().c_str());
+return PREFIX_STRINGLITERAL;
++++++
+<singlequotedstring><<EOF>>
+-----
+return 0;
++++++
+[ \t\n]+
+-----
++++++
+"/*"([^*]|(\*+[^*/]))*\*+\/
+-----
++++++
+"//".*$
+-----
++++++
+.
+-----
+return 0;

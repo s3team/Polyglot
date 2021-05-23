@@ -1,0 +1,469 @@
+program: 
+statement_list 
+--- 
+statement: 
+test_me
+block 
+variable_statement 
+export_statement 
+empty_statement 
+class_declaration 
+expression_statement 
+if_statement 
+iteration_statement 
+continue_statement 
+break_statement 
+return_statement 
+yield_statement 
+with_statement 
+switch_statement 
+throw_statement 
+try_statement 
+debugger_statement 
+function_definition **function_definition=kDataVarDefine:1:Define**
+---
+function_definition:
+function_declaration **function_declaration=kDataFunctionType:1:Define**
+--- 
+block: 
+'{' statement_list '}' 
+--- 
+statement_list: 
+statement_list statement 
+statement 
+--- 
+module_items: 
+'{' alias_name_list '}' 
+'{' alias_name_list ',' '}' 
+--- 
+alias_name_list: 
+alias_name_list ',' alias_name 
+alias_name 
+--- 
+import_namespace: 
+'*' AS identifier 
+'*' 
+--- 
+import_from 
+FROM string_literal 
+--- 
+alias_name: 
+identifier AS identifier 
+identifier 
+--- 
+export_statement: 
+EXPORT declaration eos 
+EXPORT export_from_block eos 
+EXPORT DEFAULT single_expression eos 
+--- 
+export_from_block: 
+import_namespace import_from
+module_items import_from
+module_items
+--- 
+declaration: 
+variable_definition 
+class_declaration 
+function_declaration **function_declaration=kDataFunctionType:1:Define**
+--- 
+variable_statement: 
+variable_definition eos **fixme=kDataVarDefine:1:Define**
+---
+variable_definition:
+var_modifier variable_declaration_list **fixme=kDataVarType:1:Define;var_modifier=kDataVarScope:1:Define**
+--- 
+variable_declaration_list: 
+variable_declaration_list ',' variable_declaration 
+variable_declaration 
+--- 
+variable_declaration: 
+assignable '=' single_expression **assignable->identifier=kDataVarName:1:Define;single_expression=kDataInitiator:1:Use**
+assignable **assignable->identifier=kDataVarName:1:Define**
+--- 
+empty_statement: 
+';' 
+--- 
+expression_statement: 
+expression_sequence eos 
+--- 
+if_statement: 
+IF '(' expression_sequence ')' statement ELSE statement %prec INC_OP
+IF '(' expression_sequence ')' statement %prec OP_EQUAL
+--- 
+iteration_statement: 
+DO statement WHILE '(' expression_sequence ')' eos 
+WHILE '(' expression_sequence ')' statement 
+FOR '(' variable_definition ';' opt_expression_sequence ';' opt_expression_sequence ')' statement 
+FOR '(' expression_sequence ';' opt_expression_sequence ';' opt_expression_sequence ')' statement 
+FOR '(' ';' opt_expression_sequence ';' opt_expression_sequence ')' statement 
+FOR '(' variable_definition IN expression_sequence ')' statement 
+FOR '(' single_expression IN single_expression ')' statement 
+FOR AWAIT '(' single_expression OF expression_sequence ')' statement 
+FOR '(' single_expression OF expression_sequence ')' statement 
+FOR AWAIT '(' variable_definition OF expression_sequence ')' statement 
+FOR '(' variable_definition OF expression_sequence ')' statement 
+--- 
+opt_expression_sequence: 
+
+expression_sequence 
+--- 
+var_modifier: 
+VAR 
+LET 
+CONST 
+--- 
+opt_identifier: 
+identifier
+
+--- 
+continue_statement: 
+CONTINUE opt_identifier eos 
+--- 
+break_statement: 
+BREAK opt_identifier eos 
+--- 
+return_statement: 
+RETURN expression_sequence eos 
+RETURN eos 
+--- 
+yield_statement: 
+YIELD expression_sequence eos 
+YIELD eos 
+--- 
+with_statement: 
+WITH '(' expression_sequence ')' statement 
+--- 
+switch_statement: 
+SWITCH '(' expression_sequence ')' case_block 
+--- 
+case_block: 
+'{' case_clauses default_clause case_clauses '}' 
+'{' default_clause case_clauses '}' 
+'{' case_clauses default_clause '}' 
+'{' default_clause '}' 
+'{' case_clauses '}' 
+'{' '}' 
+--- 
+case_clauses: 
+case_clauses case_clause 
+case_clause 
+--- 
+case_clause: 
+CASE expression_sequence ':' statement_list 
+CASE expression_sequence ':' 
+--- 
+default_clause: 
+DEFAULT ':' statement_list 
+DEFAULT ':' 
+--- 
+throw_statement: 
+THROW expression_sequence eos 
+--- 
+try_statement: 
+TRY block finally_production 
+TRY block catch_production finally_production 
+TRY block catch_production 
+--- 
+catch_production: 
+CATCH '(' assignable ')' block 
+CATCH '(' ')' block 
+CATCH block 
+--- 
+finally_production: 
+FINALLY block 
+--- 
+debugger_statement: 
+DEBUGGER eos 
+--- 
+function_declaration: 
+ASYNC FUNCTION '*' identifier '(' opt_formal_parameter_list ')' '{' function_body '}' **identifier=kDataFunctionName:1:Define**
+FUNCTION '*' identifier '(' opt_formal_parameter_list ')' '{' function_body '}' **identifier=kDataFunctionName:1:Define**
+ASYNC FUNCTION identifier '(' opt_formal_parameter_list ')' '{' function_body '}' **identifier=kDataFunctionName:1:Define**
+FUNCTION identifier '(' opt_formal_parameter_list ')' '{' function_body '}'  **identifier=kDataFunctionName:1:Define**
+FUNCTION identifier '(' opt_formal_parameter_list ')' '{' '}'  **identifier=kDataFunctionName:1:Define**
+--- 
+opt_formal_parameter_list: 
+
+formal_parameter_list **formal_parameter_list=kDataFunctionArg:1:Define**
+--- 
+class_declaration: 
+CLASS identifier class_tail **fixme=kDataVarDefine:1:Define;identifier=kDataClassName:1:Define;class_tail=kDataClassType:1:Define**
+--- 
+class_tail: 
+EXTENDS single_expression '{' opt_class_element_list '}' 
+'{' opt_class_element_list '}' 
+--- 
+opt_class_element_list: 
+class_element_list **fixme=kDataStructBody:1:Define**
+
+---
+class_element_list:
+class_element class_element_list
+class_element 
+---
+class_element: 
+STATIC method_definition **fixme=kDataVarDefine:1:Define;method_definition=kDataFunctionType:1:Define**
+identifier method_definition **fixme=kDataVarDefine:1:Define;method_definition=kDataFunctionType:1:Define**
+ASYNC method_definition **fixme=kDataVarDefine:1:Define;method_definition=kDataFunctionType:1:Define**
+method_definition  **fixme=kDataVarDefine:1:Define;method_definition=kDataFunctionType:1:Define**
+identifier ';' **fixme=kDataVarDefine:1:Define;identifier=kDataVarName:1:Define**
+'#' property_name '=' single_expression ';' **fixme=kDataVarDefine:1:Define;property_name->identifier=kDataVarName:1:Define;single_expression=kDataInitiator:1:Use**
+property_name '=' single_expression ';' **fixme=kDataVarDefine:1:Define;property_name->identifier=kDataVarName:1:Define;single_expression=kDataInitiator:1:Use**
+--- 
+method_definition: 
+'*' '#' property_name '(' opt_formal_parameter_list ')' '{' function_body '}' **property_name->identifier=kDataFunctionName:1:Define**
+'*' '#' getter '(' ')' '{' function_body '}' 
+'*' '#' setter '(' opt_formal_parameter_list ')' '{' function_body '}' 
+'*' property_name '(' opt_formal_parameter_list ')' '{' function_body '}' **property_name->identifier=kDataFunctionName:1:Define**
+'*' getter '(' ')' '{' function_body '}' 
+'*' setter '(' opt_formal_parameter_list ')' '{' function_body '}' 
+'#' property_name '(' opt_formal_parameter_list ')' '{' function_body '}' **property_name->identifier=kDataFunctionName:1:Define**
+'#' getter '(' ')' '{' function_body '}' 
+'#' setter '(' opt_formal_parameter_list ')' '{' function_body '}' 
+property_name '(' opt_formal_parameter_list ')' '{' function_body '}' **property_name=kDataFunctionName:1:Define**
+property_name '(' opt_formal_parameter_list ')' '{' '}' **property_name=kDataFunctionName:1:Define**
+getter '(' ')' '{' function_body '}' 
+setter '(' opt_formal_parameter_list ')' '{' function_body '}' 
+--- 
+formal_parameter_list: 
+formal_parameter_list_without_last ',' last_formal_parameter_arg 
+formal_parameter_list_without_last 
+last_formal_parameter_arg 
+--- 
+formal_parameter_list_without_last: 
+formal_parameter_list_without_last ',' formal_parameter_arg 
+formal_parameter_arg 
+--- 
+formal_parameter_arg: 
+assignable **assignable->identifier=kDataVarName:1:Define**
+assignable '=' single_expression **assignable->identifier=kDataVarName:1:Define**
+--- 
+last_formal_parameter_arg: 
+ELLIPSIS assignable **assignable->identifier=kDataVarName:1:Define**
+--- 
+function_body: 
+statement_list **fixme=kDataFunctionBody:1:Define**
+--- 
+array_literal: 
+'[' opt_element_list ']' 
+'[' single_expression ']' 
+--- 
+opt_element_list: 
+dot_list array_element
+dot_list array_element element_list opt_dot_list
+array_element element_list opt_dot_list
+
+--- 
+opt_dot_list:
+dot_list
+
+---
+dot_list:
+','
+dot_list ','
+---
+element_list: 
+single_element 
+element_list single_element 
+---
+single_element: 
+dot_list array_element 
+--- 
+array_element: 
+ELLIPSIS single_expression 
+single_expression 
+--- 
+object_literal: 
+'{' property_assignment_list ',' '}' 
+'{' ',' '}' 
+'{' property_assignment_list '}' 
+'{' '}'
+--- 
+property_assignment_list: 
+property_assignment_list ',' property_assignment 
+property_assignment 
+--- 
+property_assignment: 
+property_name ':' single_expression 
+ASYNC '*' property_name '(' opt_formal_parameter_list ')' '{' function_body '}' 
+'*' property_name '(' opt_formal_parameter_list ')' '{' function_body '}' 
+ASYNC property_name '(' opt_formal_parameter_list ')' '{' function_body '}' 
+getter '(' ')' '{' function_body '}' 
+setter '(' formal_parameter_arg ')' '{' function_body '}' 
+ELLIPSIS single_expression 
+--- 
+property_name: 
+OF
+FROM
+identifier 
+string_literal 
+number_literal 
+'[' single_expression ']' %prec LOWEST
+--- 
+argument_list: 
+argument_list ',' argument 
+argument 
+--- 
+argument: 
+ELLIPSIS single_expression 
+single_expression  
+--- 
+expression_sequence: 
+expression_sequence ',' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression **fixme=kDataFixUnit:1:Use**
+---
+single_expression: 
+anoymous_function **fixme=kDataVarDefine:1:Define;anoymous_function=kDataFunctionType:1:Define**
+CLASS class_tail **fixme=kDataVarDefine:1:Define;class_tail=kDataClassType:1:Define**
+single_expression '[' expression_sequence ']' **fixme=kDataFixUnit:1:Use**
+single_expression '?' '.' '#' identifier **fixme=kDataFixUnit:1:Use**
+single_expression '?' '.' identifier **fixme=kDataFixUnit:1:Use**
+single_expression '.' '#' identifier **fixme=kDataFixUnit:1:Use**
+single_expression '.' identifier **fixme=kDataFixUnit:1:Use**
+NEW single_expression **fixme=kDataClassType:1:Use;single_expression_1=kDataFixUnit:1:Use**
+NEW '.' identifier **fixme=kDataFixUnit:1:Use**
+single_expression '(' argument_list ',' ')' **fixme=kDataFixUnit:1:Use**
+single_expression '(' argument_list ')' **fixme=kDataFixUnit:1:Use**
+single_expression '(' ')' **fixme=kDataFixUnit:1:Use**
+single_expression '++'  **fixme=kDataFixUnit:1:Use** %prec HIGHEST 
+single_expression '--' **fixme=kDataFixUnit:1:Use** %prec HIGHEST
+DELETE single_expression **fixme=kDataFixUnit:1:Use**
+VOID single_expression **fixme=kDataFixUnit:1:Use**
+TYPEOF single_expression **fixme=kDataFixUnit:1:Use**
+'++' single_expression **fixme=kDataFixUnit:1:Use** %prec OP_NOT
+'--' single_expression %prec OP_NOT **fixme=kDataFixUnit:1:Use**
+'+' single_expression **fixme=kDataFixUnit:1:Use**
+'-' single_expression **fixme=kDataFixUnit:1:Use**
+'~' single_expression **fixme=kDataFixUnit:1:Use**
+'!' single_expression **fixme=kDataFixUnit:1:Use**
+AWAIT single_expression **fixme=kDataFixUnit:1:Use**
+single_expression '**' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression star_or_div_or_mod single_expression %prec HIGHEST **fixme=kDataFixUnit:1:Use**
+single_expression plus_or_mins single_expression %prec HIGHEST  **fixme=kDataFixUnit:1:Use**
+single_expression '??' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression ls_or_rs_or_rrs single_expression %prec HIGHEST **fixme=kDataFixUnit:1:Use**
+single_expression compare_with single_expression %prec HIGHEST **fixme=kDataFixUnit:1:Use**
+single_expression INSTANCEOF single_expression **fixme=kDataFixUnit:1:Use**
+single_expression IN single_expression **fixme=kDataFixUnit:1:Use**
+single_expression equal_or_nequal single_expression %prec HIGHEST 
+single_expression '&' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression '^' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression '|' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression '&&' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression '||' single_expression **fixme=kDataFixUnit:1:Use**
+single_expression '?' single_expression ':' single_expression **fixme=kDataFixUnit:1:Use** %prec LOWEST 
+single_expression '=' single_expression **single_expression_1=kDataFixUnit:1:Use;single_expression_2=kDataFixUnit:1:Use**
+single_expression assignment_operator single_expression %prec HIGHEST **fixme=kDataFixUnit:1:Use**
+IMPORT '(' single_expression ')' **fixme=kDataFixUnit:1:Use** 
+THIS **fixme=kDataFixUnit:1:Use**
+assignable **fixme=kDataFixUnit:1:Use**
+SUPER **fixme=kDataFixUnit:1:Use**
+literal **fixme=kDataFixUnit:1:Use**
+'(' single_expression ')' **fixme=kDataFixUnit:1:Use**
+--- 
+plus_or_mins: 
+'+' 
+'-' 
+--- 
+equal_or_nequal: 
+'==' 
+'!=' 
+'===' 
+'!==' 
+--- 
+star_or_div_or_mod: 
+'*' 
+'/' 
+'%' 
+--- 
+ls_or_rs_or_rrs: 
+'<<' 
+'>>' 
+'>>>' 
+--- 
+compare_with: 
+'<' 
+'>' 
+'<=' 
+'>=' 
+--- 
+assignable: 
+identifier 
+array_literal 
+object_literal 
+--- 
+anoymous_function: 
+ASYNC FUNCTION '*' '(' opt_formal_parameter_list ')' '{' function_body '}' 
+ASYNC FUNCTION '(' opt_formal_parameter_list ')' '{' function_body '}' 
+FUNCTION '*' '(' opt_formal_parameter_list ')' '{' function_body '}'
+FUNCTION '(' opt_formal_parameter_list ')' '{' function_body '}' 
+ASYNC arrow_function_parameters '=>' arrow_function_body 
+identifier '=>' arrow_function_body 
+'(' ')' '=>' arrow_function_body 
+--- 
+arrow_function_parameters: 
+identifier 
+'(' opt_formal_parameter_list ')' 
+--- 
+arrow_function_body: 
+single_expression %prec LOWEST 
+'{' function_body '}' 
+--- 
+assignment_operator: 
+'*=' 
+'/=' 
+'%=' 
+'+=' 
+'-=' 
+'<<=' 
+'>>=' 
+'>>>=' 
+'&=' 
+'^=' 
+'|=' 
+'**=' 
+--- 
+literal: 
+null_literal 
+boolean_literal 
+string_literal 
+number_literal 
+--- 
+number_literal: 
+int_literal 
+float_literal 
+--- 
+int_literal: 
+INTLITERAL 
+--- 
+float_literal: 
+FLOATLITERAL 
+--- 
+boolean_literal: 
+TRUE 
+FALSE 
+--- 
+null_literal: 
+NULL 
+--- 
+getter: 
+GET property_name 
+GET
+--- 
+setter 
+SET property_name 
+SET
+--- 
+eos: 
+OP_SEMI 
+--- 
+identifier: 
+IDENTIFIER 
+--- 
+string_literal: 
+STRINGLITERAL 
+---
+test_me:
+DOMEP '+'
+DOMEM '-'
+---
