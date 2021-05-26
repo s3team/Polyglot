@@ -3,7 +3,7 @@
 ## Build
 We tested `PolyGlot` on `Ubuntu 18.04`.
 
-1. Get the source code: `git clone https://github.com/s3team/Polyglot && cd PolyGlot`
+1. Get the source code: `git clone https://github.com/s3team/Polyglot && cd Polyglot`
 2. Install prerequisite: `sudo apt install -y make python g++ bison flex clang-format clang`
 3. Modify the `Makefile` to choose the language you want to test
 4. Build everything: `make`
