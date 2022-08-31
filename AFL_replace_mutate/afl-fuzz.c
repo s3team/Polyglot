@@ -5050,7 +5050,7 @@ static void show_stats(void) {
       u8  *in_buf, *out_buf, *orig_in, *ex_tmp, *eff_map = 0;
       u64 havoc_queued,  orig_hit_cnt, new_hit_cnt;
       u32 splice_cycle = 0, perf_score = 100, orig_perf, prev_cksum, eff_cnt = 1;
-
+      int skip_count = 0;
       u8  ret_val = 1, doing_det = 0;
 
       u8  a_collect[MAX_AUTO_EXTRA];
@@ -5202,7 +5202,6 @@ static void show_stats(void) {
       mutated_tree = g_mutator.mutate_all(ir_set);
       deep_delete(ir_set[ir_set.size()-1]);
       show_stats();
-      int skip_count = 0;
       stage_max = mutated_tree.size();
       stage_cur = 0;
       for(auto &ir: mutated_tree){
