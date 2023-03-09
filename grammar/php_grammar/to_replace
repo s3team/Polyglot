@@ -148,3 +148,4 @@
 '**'  T_POW
 '**='  T_POW_EQUAL
 '<?php'  T_OPEN_TAG
+?>	T_CLOSE_TAG

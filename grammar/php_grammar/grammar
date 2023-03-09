@@ -1,5 +1,5 @@
 program:
-T_OPEN_TAG top_statement_list
+T_OPEN_TAG top_statement_list T_CLOSE_TAG
 ---
 reserved_non_modifiers:
 T_INCLUDE
