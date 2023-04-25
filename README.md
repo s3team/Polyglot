@@ -1,5 +1,7 @@
 # PolyGlot, a fuzzing framework for language processors
 
+A version that supports Aflplusplus and antlr grammar can be found [here](https://github.com/OMH4ck/PolyGlot).
+
 ## Build
 We tested `PolyGlot` on `Ubuntu 18.04`.
 
