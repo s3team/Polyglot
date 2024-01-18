@@ -5850,7 +5850,7 @@ EXP_ST void setup_dirs_fds(void) {
 
 EXP_ST void setup_stdio_file(void) {
 
-  u8* fn = alloc_printf("%s/.cur_input.java", out_dir);
+  u8* fn = alloc_printf("%s/.cur_input", out_dir);
 
   unlink(fn); /* Ignore errors */
 
